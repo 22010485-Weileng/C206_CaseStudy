@@ -11,7 +11,7 @@ public class C206_CaseStudy {
 		currencyList.add(new Currency("2.","CNY", "Yuan Renminbi", 5.35));
 		currencyList.add(new Currency("3.","USD", "US Dollar", 0.75));
 		
-		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
+		ArrayList<Transaction> TransactionList = new ArrayList<Transaction>();
 		
 		ArrayList<Account> accountList = new ArrayList<Account>();
 
@@ -84,31 +84,29 @@ public class C206_CaseStudy {
 			 }else if (option == 3) {
 				// Manage transactions
 				C206_CaseStudy.setHeader("Process transactions");
-				System.out.println("1. Add new transaction");
-				System.out.println("2. View all transactions");
-				System.out.println("3. Delete existing transaction");
 				
-				int transactionManagement = Helper.readInt("Enter option to select to manage transactions > ");
-				
-				if (transactionManagement == 1) {
-					// Add a transaction
-					Transaction transc = inputTransaction();
-					C206_CaseStudy.addTransaction(transactionList,transc);
-					System.out.println("A transaction is added to the system.");
-					
-				} else if (transactionManagement == 2) {
-					//view all transactions
-					C206_CaseStudy.viewAllTransaction(transactionList);
-					
-				} else if(transactionManagement ==3) {
-					//delete existing transaction
-					Transaction transc = inputTransaction();
-					C206_CaseStudy.deleteTransaction(transactionList,transc);
-					System.out.println("A transaction has been deleted.");
-					
-					
-				}else {
-					System.out.println("Invalid option. Please try again.");
+				int transactionOption = 0;
+
+				while (transactionOption != 4) {
+					C206_CaseStudy.transactionMenu();
+					transactionOption = Helper.readInt("Enter an option > ");
+
+					if (transactionOption == 1) {
+						C206_CaseStudy.viewTransactions(TransactionList);
+					} else if (transactionOption == 2) {
+						C206_CaseStudy.setHeader("Add Resume");
+						C206_CaseStudy.addTransaction(TransactionList);
+					} else if (transactionOption == 3) {
+						C206_CaseStudy.setHeader("Delete Resume");
+						C206_CaseStudy.deleteTransaction(TransactionList);
+					} else if (transactionOption == 4) {
+						System.out.println("Bye! ");
+						C206_CaseStudy.menu();
+						option = Helper.readInt("Enter an option > ");
+					} else {
+						System.out.println("Invalid Option");
+
+					}
 				}
 				
 			 }else if (option == 4) {
@@ -274,22 +272,62 @@ public class C206_CaseStudy {
 	}
 
 
-	private static Transaction inputTransaction() {
-	// TODO Auto-generated method stub
-	return null;
+	public static void transactionMenu() {
+		System.out.println("1. Display Transaction");
+		System.out.println("2. Add Transaction");
+		System.out.println("3. Delete Transaction");
+		System.out.println("4. Quit");
+		Helper.line(80, "-");
+	}
+
+	//View all transactions
+	public static void viewTransactions(ArrayList<Transaction> TransactionList) {
+		
+		Helper.line(80, "=");
+		System.out.println("TRANSACTIONS");
+		Helper.line(80, "=");
+		String output = String.format("%-5s %-15s %-12s %-12s %-8s\n","ID", "Name", "Amount", "Date", "Type" );
+		
+		for (int i = 0; i < TransactionList.size(); i++) {
+	    output += String.format("%-5s %-15s %-12.2f %-12s %-8s\n", TransactionList.get(i).getID(), TransactionList.get(i).getCustomerName(), TransactionList.get(i).getAmount(), TransactionList.get(i).getDate(), TransactionList.get(i).getType());
 }
-	private static void addTransaction(ArrayList<Transaction> transactionList, Transaction transc) {
-	// TODO Auto-generated method stub
+	System.out.println(output);	
+}
+
 	
+
+	//Add new transaction
+	public static void addTransaction(ArrayList<Transaction> TransactionList) {
+		String ID = Helper.readString("Enter resume ID: ");
+		String Name = Helper.readString("Enter name: ");
+		double amount = Helper.readDouble("Enter amount: ");
+		String date = Helper.readString("Enter Date: ");
+		String type = Helper.readString("Enter transaction type details: ");
+
+		Transaction addTransaction = new Transaction(ID, Name, amount, date, type);
+		TransactionList.add(addTransaction);
+		System.out.println("Transaction added successfully!");
+	}
+
+	//Delete existing transaction
+	public static void deleteTransaction(ArrayList<Transaction> TransactionList) {
+		String ID = Helper.readString("Enter the resume ID you want to delete: ");
+		Transaction transactionToDelete = null;
+		for (Transaction transaction : TransactionList) {
+			if (transaction.getID().equals(ID)) {
+				transactionToDelete = transaction;
+				break;
+			}
+		}
+
+		if (transactionToDelete != null) {
+			TransactionList.remove(transactionToDelete);
+			System.out.println("Resume with ID " + ID + " deleted successfully!");
+		} else {
+			System.out.println("No resume found with the given ID!");
+		}
 }
-	private static void viewAllTransaction(ArrayList<Transaction> transactionList) {
-	// TODO Auto-generated method stub
-	
-}
-	private static void deleteTransaction(ArrayList<Transaction> transactionList, Transaction transc) {
-	// TODO Auto-generated method stub
-	
-}
+
 
 	private static Account inputAccount() {
 		// TODO Auto-generated method stub
