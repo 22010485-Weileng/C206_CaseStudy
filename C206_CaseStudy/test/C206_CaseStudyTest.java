@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
+	private currency;
 
 	@Before
 	public void setUp() throws Exception {

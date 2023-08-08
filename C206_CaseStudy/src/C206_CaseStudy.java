@@ -7,9 +7,9 @@ public class C206_CaseStudy {
 		ArrayList<User> userList = new ArrayList<User>();
 		
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		currencyList.add(new Currency("1.","MYR","Malaysian Ringgit", 3.40));
-		currencyList.add(new Currency("2.","CNY", "Yuan Renminbi", 5.35));
-		currencyList.add(new Currency("3.","USD", "US Dollar", 0.75));
+		currencyList.add(new Currency("MYR","Malaysian Ringgit", 3.40));
+		currencyList.add(new Currency("CNY", "Yuan Renminbi", 5.35));
+		currencyList.add(new Currency("USD", "US Dollar", 0.75));
 		
 		ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
 		
@@ -73,8 +73,7 @@ public class C206_CaseStudy {
 					
 				} else if(currencyManagement==3) {
 					//delete existing currency
-					Currency currency = inputCurrency();
-					C206_CaseStudy.deleteCurrency(currencyList,currency);
+					C206_CaseStudy.deleteCurrency(currencyList);
 					
 					
 				}else {
@@ -185,12 +184,11 @@ public class C206_CaseStudy {
 }
 	private static Currency inputCurrency() {
 	// TODO Auto-generated method stub
-		String number= Helper.readString("Enter number > ");
 		String currencyCode = Helper.readString("Enter currency code > ");
 		String currencyName = Helper.readString("Enter currency name > ");
 	    double exchangeRate = Helper.readDouble("Enter exchange rate > ");
 
-		Currency currency = new Currency(number,currencyCode,currencyName,exchangeRate);
+		Currency currency = new Currency(currencyCode,currencyName,exchangeRate);
 		
 		return currency;
 	
@@ -229,7 +227,7 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < currencyList.size(); i++) {
 
-			output += String.format("%-10s %-20s %-20s %-10.2f\n",currencyList.get(i).getNumber(), currencyList.get(i).getCurrencyCode(),
+			output += String.format(" %-20s %-20s %-10.2f\n", currencyList.get(i).getCurrencyCode(),
 					currencyList.get(i).getCurrencyName(),currencyList.get(i).getExchangeRate());
 				
 			
@@ -239,31 +237,28 @@ public class C206_CaseStudy {
 	private static void viewAllCurrencies(ArrayList<Currency> currencyList) {
 	// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("CURRENCIES LIST");
-		String output = String.format("%-10s %-20s %-20s %-10s\n","NUMBER","CURRENCY CODE", "CURRENCY NAME", "EXCHANGE RATE");
+		String output = String.format(" %-20s %-20s %-10s\n","CURRENCY CODE", "CURRENCY NAME", "EXCHANGE RATE");
 		output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
 	}
-	
-	private static void deleteCurrency(ArrayList<Currency> currencyList, String currencyToDelete) {
+	private static void deleteCurrency(ArrayList<Currency> currencyList) {
 	    C206_CaseStudy.viewAllCurrencies(currencyList);
-	    System.out.print("Enter the currency code to delete: ");
-	    currencyToDelete = Helper.readString().trim();
+	    String currencyCodeToDelete = Helper.readString("Enter the currency code to delete: ");
 
-	    Currency currencyToDeleteObj = null;
+	    Currency currency = null;
 	    for (Currency c : currencyList) {
-	        if (c.getCurrencyCode().equalsIgnoreCase(currencyToDelete)) {
-	            currencyToDeleteObj = c;
+	        if (c.getCurrencyCode().equalsIgnoreCase(currencyCodeToDelete)) {
+	            currency = c;
 	            break;
 	        }
 	    }
 
-	    if (currencyToDeleteObj != null) {
-	        System.out.print("Are you sure you want to delete " + currencyToDeleteObj.getCurrencyCode()
-	                + " - " + currencyToDeleteObj.getCurrencyName() + "-" + currencyToDeleteObj.getExchangeRate() + "? (Y/N): ");
-	        String confirmation = Helper.readString().trim();
+	    if (currency != null) {
+	        String confirmation = Helper.readString("Are you sure you want to delete " + currency.getCurrencyCode()
+            + " - " + currency.getCurrencyName() + "-" + currency.getExchangeRate() + "? (Y/N): ");
 
 	        if (confirmation.equalsIgnoreCase("y")) {
-	            currencyList.remove(currencyToDeleteObj);
+	            currencyList.remove(currency);
 	            System.out.println("A currency has been deleted.");
 	        } else {
 	            System.out.println("Currency deletion canceled.");
@@ -273,6 +268,7 @@ public class C206_CaseStudy {
 	    }
 	}
 
+	
 
 	private static Transaction inputTransaction() {
 	// TODO Auto-generated method stub
