@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-	public static void main(String[] args) {
+	public static void main(String[] args, String currencyCode) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
 		userList.add(new User("Tom Lee","T1234567A","Adminstrator"));
@@ -74,7 +74,7 @@ public class C206_CaseStudy {
 					
 				} else if(currencyManagement==3) {
 					//delete existing currency
-					C206_CaseStudy.deleteCurrency(currencyList);
+					C206_CaseStudy.deleteCurrency(currencyList, currencyCode);
 					
 					
 				}else {
@@ -265,7 +265,7 @@ public class C206_CaseStudy {
 		output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
 	}
-	private static void deleteCurrency(ArrayList<Currency> currencyList) {
+	public static boolean deleteCurrency(ArrayList<Currency> currencyList, String currencyCode) {
 	    C206_CaseStudy.viewAllCurrencies(currencyList);
 	    String currencyCodeToDelete = Helper.readString("Enter the currency code to delete: ");
 
@@ -290,6 +290,7 @@ public class C206_CaseStudy {
 	    } else {
 	        System.out.println("Currency code not found. Currency deletion canceled.");
 	    }
+		return false;
 	}
 
 	
