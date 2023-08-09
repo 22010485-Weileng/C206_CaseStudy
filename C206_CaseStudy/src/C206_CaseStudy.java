@@ -5,6 +5,9 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
+		userList.add(new User("Tom Lee","T1234567A","Adminstrator"));
+		userList.add(new User("Amy Lim","T2985239B","User"));
+		
 		
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
 		currencyList.add(new Currency("MYR","Malaysian Ringgit", 3.40));
@@ -33,9 +36,8 @@ public class C206_CaseStudy {
 				
 				if (userManagement == 1) {
 					// Add a user
-					User usr = inputUser();
-					C206_CaseStudy.addUser(userList,usr);
-					System.out.println("User added. ");
+					C206_CaseStudy.addUser(userList);
+					
 					
 				} else if (userManagement  == 2) {
 					//view all users
@@ -43,9 +45,8 @@ public class C206_CaseStudy {
 					
 				} else if(userManagement==3) {
 					//delete user
-					User usr = inputUser();
-					C206_CaseStudy.deleteUser(userList,usr);
-					System.out.println("User deleted. ");
+					C206_CaseStudy.deleteUser(userList);
+					
 					
 				}else {
 					System.out.println("Invalid option.Please try again.");
@@ -165,23 +166,46 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 }
 
-	private static User inputUser() {
-	// TODO Auto-generated method stub
-	return null;
-}
-	private static void addUser(ArrayList<User> userList, User usr) {
-	// TODO Auto-generated method stub
-	
-}
-		
-	private static void viewAllUsers(ArrayList<User> userList) {
-	// TODO Auto-generated method stub
-	
-}
-	private static void deleteUser(ArrayList<User> userList, User usr) {
-	// TODO Auto-generated method stub
-	
-}
+	private static void addUser(ArrayList<User> userList) {
+		  // TODO Auto-generated method stub
+		  String user = Helper.readString("Enter username >");
+		  String userID = Helper.readString("Enter user ID >");
+		  String role = Helper.readString("Enter role >");
+		  
+		  userList.add(new User(user, userID, role));
+		  System.out.println("User is successfully added!");
+		}
+		    
+		  private static void viewAllUsers(ArrayList<User> userList) {
+		  // TODO Auto-generated method stub
+		  
+		    String header = String.format("%-15s%-20s%-20s", "Username", "UserID", "Role");
+		    
+		    System.out.println("");
+		    System.out.println(header);
+		    
+		    for (int i = 0; i<userList.size();i++) {
+		      String output = String.format("%-15s%-20s%-20s", userList.get(i).getUsername(), userList.get(i).getUserID(),userList.get(i).getRole()); 
+		      System.out.println(output);
+		    }
+		      System.out.println("\n");
+		}
+		  private static void deleteUser(ArrayList<User> userList) {
+		  // TODO Auto-generated method stub
+		  String username = Helper.readString("Enter username");
+		  
+		  for (int i = 0; i < userList.size(); i++) {
+		    if (userList.get(i).getUsername().equalsIgnoreCase(username)) {
+		      userList.get(i).display();
+		      char removeuser = Helper.readChar("Confirm to delete this user?(y/n)");
+		      if (removeuser == 'y') {
+		        userList.remove(i);
+		        System.out.println("This user has been deleted");
+		      } else if (removeuser == 'n') {
+		        System.out.println("This user is not deleted");
+		      }
+		      
+		    }}}
 	private static Currency inputCurrency() {
 	// TODO Auto-generated method stub
 		String currencyCode = Helper.readString("Enter currency code > ");
