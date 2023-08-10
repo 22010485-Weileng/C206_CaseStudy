@@ -2,6 +2,13 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+	private static final int OPTION_CURRENCY_MANAGEMENT = 2;
+	private static final int DELETE_CURRENCY = 3;
+	private static final int VIEW_ALL_CURRENCIES = 2;
+	private static final int ADD_CURRENCY = 1;
+	private static final int OPTION_QUIT = 5;
+	
+
 	public static void main(String[] args, String currencyCode) {
 		// TODO Auto-generated method stub
 		ArrayList<User> userList = new ArrayList<User>();
@@ -20,12 +27,12 @@ public class C206_CaseStudy {
 
 		int option = 0;
 		
-		while (option != 12) {
+		while (option != OPTION_QUIT) {
 			
 			C206_CaseStudy.menu();
 			option = Helper.readInt("Enter an option > ");
 			
-			if(option ==1) {
+			if(option == 1) {
 			   // Manage users
 				C206_CaseStudy.setHeader("Manage users");
 				System.out.println("1. Add new user");
@@ -53,26 +60,24 @@ public class C206_CaseStudy {
 				}
 			
 			
-			} else if (option == 2) {
+			} else if (option == OPTION_CURRENCY_MANAGEMENT) {
 				//Manage currency
 				C206_CaseStudy.setHeader("Manage currency");
-				System.out.println("1. Add new currency");
-				System.out.println("2. View all currencies");
-				System.out.println("3. Delete existing currency");
+				currencyManagementMenu();
 				
 				int currencyManagement = Helper.readInt("Enter option to select to manage currency > ");
 				
-				if (currencyManagement == 1) {
+				if (currencyManagement == ADD_CURRENCY) {
 					// Add a currency
 					Currency currency = inputCurrency();
 					C206_CaseStudy.addCurrency(currencyList,currency);
 					
 					
-				} else if (currencyManagement  == 2) {
+				} else if (currencyManagement  == VIEW_ALL_CURRENCIES) {
 					//view all currencies
 					C206_CaseStudy.viewAllCurrencies(currencyList);
 					
-				} else if(currencyManagement==3) {
+				} else if(currencyManagement==DELETE_CURRENCY) {
 					//delete existing currency
 					C206_CaseStudy.deleteCurrency(currencyList, currencyCode);
 					
@@ -141,12 +146,18 @@ public class C206_CaseStudy {
 						System.out.println("Invalid option. Please try again.");
 					}
 
-				} else if (option == 5) {
+				} else if (option == OPTION_QUIT) {
 					System.out.println("Exiting the Money Exchange Management System. Goodbye!");
 				} else {
 					System.out.println("Invalid option");
 			 }
 		}
+	}
+
+	public static void currencyManagementMenu() {
+		System.out.println("1. Add new currency");
+		System.out.println("2. View all currencies");
+		System.out.println("3. Delete existing currency");
 	}
 	
 	public static void menu() {
@@ -219,13 +230,14 @@ public class C206_CaseStudy {
 }
 	private static void addCurrency(ArrayList<Currency> currencyList, Currency currency) {
 	    // Check if the currency code already exists in the currencyList
-	    if (isCurrencyCodeExists(currency.getCurrencyCode(), currencyList)) {
+	    String currencyCode = currency.getCurrencyCode();
+		if (isCurrencyCodeExists(currencyCode, currencyList)) {
 	        System.out.println("A currency with the same code already exists.");
 	        return;
 	    }
 
 	    // Check if the currency code or currency name is empty
-	    if (currency.getCurrencyCode().isEmpty() || currency.getCurrencyName().isEmpty()) {
+	    if (currencyCode.isEmpty() || currency.getCurrencyName().isEmpty()) {
 	        System.out.println("Currency code and name cannot be empty.");
 	        return;
 	    }
@@ -251,8 +263,11 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < currencyList.size(); i++) {
 
-			output += String.format(" %-20s %-20s %-10.2f\n", currencyList.get(i).getCurrencyCode(),
-					currencyList.get(i).getCurrencyName(),currencyList.get(i).getExchangeRate());
+			String currencyCode = currencyList.get(i).getCurrencyCode();
+			String currencyName = currencyList.get(i).getCurrencyName();
+			double exchangeRate = currencyList.get(i).getExchangeRate();
+			output += String.format(" %-20s %-20s %-10.2f\n", currencyCode,
+					currencyName,exchangeRate);
 				
 			
 		}
@@ -283,8 +298,7 @@ public class C206_CaseStudy {
 
 	        if (confirmation.equalsIgnoreCase("y")) {
 	            currencyList.remove(currency);
-	            System.out.println("A currency has been deleted.");
-	        } else {
+	            System.out.println("A currency has been deleted.");	       
 	            System.out.println("Currency deletion canceled.");
 	        }
 	    } else {
