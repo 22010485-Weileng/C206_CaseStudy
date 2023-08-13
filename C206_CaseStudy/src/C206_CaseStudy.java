@@ -81,25 +81,28 @@ public class C206_CaseStudy {
 					System.out.println("Invalid option. Please try again.");
 				}
 				
-			 }else if (option == 3) {
+			} else if (option == 3) {
 				// Manage transactions
 				C206_CaseStudy.setHeader("Process transactions");
-				
+
 				int transactionOption = 0;
 
-				while (transactionOption != 4) {
+				while (transactionOption != 5) {
 					C206_CaseStudy.transactionMenu();
 					transactionOption = Helper.readInt("Enter an option > ");
 
 					if (transactionOption == 1) {
 						C206_CaseStudy.viewTransactions(TransactionList);
 					} else if (transactionOption == 2) {
-						C206_CaseStudy.setHeader("Add Resume");
+						C206_CaseStudy.setHeader("Add transaction");
 						C206_CaseStudy.addTransaction(TransactionList);
 					} else if (transactionOption == 3) {
-						C206_CaseStudy.setHeader("Delete Resume");
+						C206_CaseStudy.setHeader("Delete transaction");
 						C206_CaseStudy.deleteTransaction(TransactionList);
 					} else if (transactionOption == 4) {
+						C206_CaseStudy.setHeader("Update transaction");
+						C206_CaseStudy.updateTransaction(TransactionList);
+					} else if (transactionOption == 5) {
 						System.out.println("Bye! ");
 						C206_CaseStudy.menu();
 						option = Helper.readInt("Enter an option > ");
