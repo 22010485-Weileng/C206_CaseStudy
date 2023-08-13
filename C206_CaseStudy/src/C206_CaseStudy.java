@@ -330,6 +330,17 @@ public class C206_CaseStudy {
 			Helper.line(80, "-");
 		}
 
+	public static void tUpdateMenu() {
+  System.out.println("1. Update ID");
+  System.out.println("2. Update name");
+  System.out.println("3. Update balance");
+  System.out.println("4. Update amount");
+  System.out.println("5. Update date");
+  System.out.println("6. Update currency type");
+  System.out.println("7. Update amount to get");
+  System.out.println("8. Quit");
+ }
+
 		//View all transactions
 		public static void viewTransactions(ArrayList<Transaction> TransactionList) {
 			
