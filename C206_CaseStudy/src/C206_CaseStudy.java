@@ -442,7 +442,8 @@ public class C206_CaseStudy {
 					}
 				}
 			
-			// Search for transaction
+
+				// Search for transaction
 			public static void searchTransaction(ArrayList<Transaction> TransactionList) {
 				String output = "";
 				  String searchID = Helper.readString("Enter Transaction ID to view > ");
