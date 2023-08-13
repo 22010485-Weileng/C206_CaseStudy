@@ -311,7 +311,7 @@ public class C206_CaseStudy {
 
 	//Delete existing transaction
 	public static void deleteTransaction(ArrayList<Transaction> TransactionList) {
-		String ID = Helper.readString("Enter the resume ID you want to delete: ");
+		String del = Helper.readString("Enter the resume ID you want to delete: ");
 		Transaction transactionToDelete = null;
 		for (Transaction transaction : TransactionList) {
 			if (transaction.getID().equals(ID)) {
@@ -322,12 +322,65 @@ public class C206_CaseStudy {
 
 		if (transactionToDelete != null) {
 			TransactionList.remove(transactionToDelete);
-			System.out.println("Resume with ID " + ID + " deleted successfully!");
+			System.out.println("Resume with ID " + del + " deleted successfully!");
 		} else {
 			System.out.println("No resume found with the given ID!");
 		}
 }
 
+	// Update existing transaction
+	public static void updateTransaction(ArrayList<Transaction> TransactionList) {
+		String upd = Helper.readString("Enter the resume ID you want to update >");
+		for (int i = 0; i < TransactionList.size(); i++) {
+			if (TransactionList.get(i).getID().equals(upd)) {
+				tUpdateMenu();
+				int opt = Helper.readInt("Select an option(1-8) > ");
+				
+					if (opt == 1) {
+						String updID = Helper.readString("Enter new ID >");
+						TransactionList.get(i).setID(updID);
+						System.out.println("ID successfully updated to " + updID);
+						
+					} else if (opt == 2) {
+						String updName = Helper.readString("Enter new name > ");
+						TransactionList.get(i).setCustomerName(updName);
+						System.out.println("Name successfully updated to " + updName);
+						
+					} else if (opt == 3) {
+						int updBal = Helper.readInt("Enter new balance > ");
+						TransactionList.get(i).setBalance(updBal);
+						System.out.println("Balance successfully updated to " + updBal);
+						
+					} else if (opt == 4) {
+						int updAmt = Helper.readInt("Enter new amount > ");
+						TransactionList.get(i).setAmount(updAmt);
+						System.out.println("Amount successfully updated to " + updAmt);
+						
+					} else if (opt == 5) {
+						String updDate = Helper.readString("Enter new Date >");
+						TransactionList.get(i).setDate(updDate);
+						System.out.println("Date successfully updated to " + updDate);
+						
+					} else if (opt == 6) {
+						String updCurr = Helper.readString("Enter new currency >");
+						TransactionList.get(i).setCurr(updCurr);
+						System.out.println("Currency type updated to " + updCurr);
+						
+					} else if (opt == 7) {
+						int updATG = Helper.readInt("Enter new amount to get > ");
+						TransactionList.get(i).setAmountToGet(updATG);
+						System.out.println("Amount to get successfully updated to " + updATG);
+						
+					} else if (opt == 8) {
+						break;
+						
+					} 
+					
+				} else {
+					System.out.println("Transaction ID not found!");
+				}
+			}
+		}
 
 	private static Account inputAccount() {
 		// TODO Auto-generated method stub
