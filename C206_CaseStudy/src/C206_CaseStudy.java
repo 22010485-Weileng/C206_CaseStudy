@@ -430,7 +430,34 @@ public class C206_CaseStudy {
 						System.out.println("Transaction ID not found!");
 					}
 				}
+			
+			// Search for transaction
+			public static void searchTransaction(ArrayList<Transaction> TransactionList) {
+				String output = "";
+				  String searchID = Helper.readString("Enter Transaction ID to view > ");
+				  for (int i = 0; i < TransactionList.size(); i++) {
+				   if (TransactionList.get(i).getID().equals(searchID)) {
+
+				    Helper.line(80, "=");
+				    System.out.println("TRANSACTION");
+				    Helper.line(80, "=");
+				    output = String.format("%-5s %-15s %-8s %-12s %-12s %-8s %-20s\n", "ID", "Name", "Balance", "Amount",
+				      "Date", "Curr", "Amount to get");
+
+				    output += String.format("%-5s %-15s %-8.2f %-12.2f %-12s %-8s %-20.2f\n",
+				      TransactionList.get(i).getID(), TransactionList.get(i).getCustomerName(),
+				      TransactionList.get(i).getBalance(), TransactionList.get(i).getAmount(),
+				      TransactionList.get(i).getDate(), TransactionList.get(i).getCurr(),
+				      TransactionList.get(i).getAmountToGet());
+				   } else {
+				    System.out.println("Transaction ID not found!");
+				   }
+				   System.out.println(output);
+				  }
+				 }
+				
 			}
+			  
 	private static Account inputAccount() {
 			// TODO Auto-generated method stub
 			return null;
