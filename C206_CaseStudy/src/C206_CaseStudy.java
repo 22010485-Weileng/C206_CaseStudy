@@ -84,59 +84,53 @@ public class C206_CaseStudy {
 				}else {
 					System.out.println("Invalid option. Please try again.");
 				}
-				
 			} else if (option == 3) {
+				
 				// Manage transactions
 				C206_CaseStudy.setHeader("Process transactions");
-
+				
 				int transactionOption = 0;
-
-<<<<<<< HEAD
-				while (transactionOption != 5) {
-					C206_CaseStudy.transactionMenu();
-					transactionOption = Helper.readInt("Enter an option > ");
-
-					if (transactionOption == 1) {
-						C206_CaseStudy.viewTransactions(TransactionList);
-					} else if (transactionOption == 2) {
-						C206_CaseStudy.setHeader("Add transaction");
-						C206_CaseStudy.addTransaction(TransactionList);
-					} else if (transactionOption == 3) {
-						C206_CaseStudy.setHeader("Delete transaction");
-						C206_CaseStudy.deleteTransaction(TransactionList);
-					} else if (transactionOption == 4) {
-						C206_CaseStudy.setHeader("Update transaction");
-						C206_CaseStudy.updateTransaction(TransactionList);
-					} else if (transactionOption == 5) {
-=======
+				
 				while (transactionOption != 6) {
-					C206_CaseStudy.transactionMenu();
-					transactionOption = Helper.readInt("Enter an option > ");
+				 
+				     C206_CaseStudy.transactionMenu();
+				     transactionOption = Helper.readInt("Enter an option > ");
 
-					if (transactionOption == 1) {
-						C206_CaseStudy.viewTransactions(TransactionList);
-					} else if (transactionOption == 2) {
-						C206_CaseStudy.setHeader("Add transaction");
-						C206_CaseStudy.addTransaction(TransactionList);
-					} else if (transactionOption == 3) {
-						C206_CaseStudy.setHeader("Delete transaction");
-						C206_CaseStudy.deleteTransaction(TransactionList);
-					} else if (transactionOption == 4) {
-						C206_CaseStudy.setHeader("Update transaction");
-						C206_CaseStudy.updateTransaction(TransactionList);
-					} else if (transactionOption == 5) {
-						C206_CaseStudy.setHeader("Search transaction");
-						C206_CaseStudy.searchTransaction(TransactionList);
-					} else if (transactionOption == 6) {
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
-						System.out.println("Bye! ");
-						C206_CaseStudy.menu();
-						option = Helper.readInt("Enter an option > ");
-					} else {
-						System.out.println("Invalid Option");
+				     if (transactionOption == 1) {
+				    	 C206_CaseStudy.viewTransactions(TransactionList); 
+				        
+				     } else if (transactionOption == 2) {
+				    	 
+				    	 C206_CaseStudy.setHeader("Add transaction");
+					     C206_CaseStudy.addTransaction(TransactionList);
+				     				      
+				     } else if (transactionOption == 3) {
+				    	 C206_CaseStudy.setHeader("Delete transaction");
+					     C206_CaseStudy.deleteTransaction(TransactionList);
+				     
+				     } else if (transactionOption == 4) {
+				    	 C206_CaseStudy.setHeader("Update transaction");
+					     C206_CaseStudy.updateTransaction(TransactionList);
+				     
+				     } else if (transactionOption == 5) {
+				    	 C206_CaseStudy.setHeader("Search transaction");
+					     C206_CaseStudy.searchTransaction(TransactionList);
+				   
+				     
+				     } else if (transactionOption == 6) {
+				    	 System.out.println("Bye! ");
+					     C206_CaseStudy.menu();
+					     option = Helper.readInt("Enter an option > ");
+				     
+				      
+				     } else {
+				    	 System.out.println("Invalid Option");
+				     
+				      
 
-					}
-				}
+				     }
+
+				}		    
 			 }else if (option == 4) {
 					// Manage accounts
 					C206_CaseStudy.setHeader("Manage accounts");
