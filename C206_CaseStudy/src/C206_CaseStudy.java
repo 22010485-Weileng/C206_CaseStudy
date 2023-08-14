@@ -349,6 +349,7 @@ public class C206_CaseStudy {
 		  String output = String.format("%-5s %-15s %-8s %-12s %-12s %-8s %-20s\n", "ID", "Name", "Balance", "Amount",
 		     "Date", "Curr", "Amount to get");
 
+
 		  for (int i = 0; i < TransactionList.size(); i++) {
 			  output += String.format("%-5s %-15s %-8.2f %-12.2f %-12s %-8s %-20.2f\n", TransactionList.get(i).getID(),
 				      TransactionList.get(i).getCustomerName(), TransactionList.get(i).getBalance(),
@@ -359,8 +360,7 @@ public class C206_CaseStudy {
 				  
 			  
 		  }
-		   
-
+	 
 	
 		// Add new transaction
 	    public static void addTransaction(ArrayList<Transaction> TransactionList) {
@@ -461,7 +461,8 @@ public class C206_CaseStudy {
 				}
 				}
 			
-			// Search for transaction
+
+				// Search for transaction
 			public static void searchTransaction(ArrayList<Transaction> TransactionList) {
 				String output = "";
 				String searchID = Helper.readString("Enter Transaction ID to view > ");
