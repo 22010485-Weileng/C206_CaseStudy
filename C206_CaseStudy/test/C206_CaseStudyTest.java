@@ -7,20 +7,100 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class C206_CaseStudyTest {
+	private User usr1;
+	private User usr2;
+	
+	private ArrayList<User> userList;
     private ArrayList<Currency> currencyList;
+    private ArrayList<Transaction> transactionList;
     private ArrayList<Account>  accountList;
     
-    //currencyManagement
+   
     @Before
     public void setUp() throws Exception {
+    	//prepare test data for user management
+    	userList = new ArrayList<User>();
+    	usr1 = new User("John", "S1234567Z", "user");
+    	usr2 = new User("Jack", "S9876543Z", "admin");
+        
     	//prepare test data for currency management
         currencyList = new ArrayList<Currency>();
         
+        //prepare test data for transaction processing
+        transactionList = new ArrayList<Transaction>();
+        
         //prepare test data for account management
         accountList = new ArrayList<Account>();
-           
+     
+     //user Management   
     }
+    @Test
+    public void testAddUser() {
+    	// Test adding a user
+    	userList.add(new User("Tom", "S1122334Z", "user"));
+        assertEquals("Checking if the user was added", 3, userList.size());
+        assertEquals("Checking if the user was added correctly", userList.get(2));
+        
+        // Test for adding duplicate users
+        userList.add(new User("Tom", "S1122334Z", "user"));
+        assertEquals("Checking if duplicate user was added", 3, userList.size());
+        
+        
+    }
+    @Test
+    public void testviewAllUser() {
+    	// Test if the list is empty
+    	 userList.clear(); // Make sure the list is empty
+         String testOutput = "";
+         String allUser=  C206_CaseStudy.viewAllUsers(userList);
+         
+        //Test if the output is empty when the userList is empty
+         assertEquals("Test if nothing is displayed for empty userList", testOutput, allUser);
+         // Test and check if the list is not empty
+         userList.clear(); // Clear the list
+         // Add user details to the userList to test
+         userList.add(new User("John", "S1234567Z", "user"));
+         userList.add(new User("Jack", "S9876543Z", "admin"));
+         // Reset testOutput   
+         testOutput = ""; 
+         
+         testOutput += String.format("%-10s %-20s %-10s \n", "John", "S1234567Z", "user");
+         testOutput += String.format("%-10s %-20s %-10s \n", "Jack", "S9876543Z", "admin");
 
+         // Test that the details are displayed correctly when userList is not empty
+         assertEquals("Test that the display is correct for non-empty userList", testOutput, allUser);
+     
+         
+         
+ }
+    @Test
+    public void testDeleteuser() {
+      ArrayList<User> userList = new ArrayList<>();
+      userList.add(new User("John", "S1234567Z", "user"));
+      
+    //Test to delete an existing user in the system
+    //Delete by the name of the existing user
+       String nameToDelete = "John";
+       C206_CaseStudy.deleteUser(userList, nameToDelete); 
+       assertEquals("Checking if the user was deleted", 0, userList.size()); 
+       
+       //Test if the deleted user is still inside the list
+       assertFalse("Checking if the deleted user is no longer in the list", 
+       userList.contains(new User("John", "S1234567Z", "user")));
+       
+       //Test another user by adding another user to the list for the test  
+       userList.add(new User("Jack", "S9876543Z", "admin"));
+       
+       
+       // Test if it is possible to delete a user that does not exist in the system
+       String nonExistingName = "James"; 
+       
+       C206_CaseStudy.deleteUser(userList, nonExistingName); 
+       assertEquals("Checking if the list remains unchanged", 1, userList.size());
+ 
+}
+ 
+    //currency Management
     @Test
     public void testAddCurrency() {
     	//fail("Not yet implemented");
@@ -85,6 +165,53 @@ public class C206_CaseStudyTest {
         assertFalse("Currency should not be deleted if not found",isDeletedNotFound);
         assertEquals("Check that the list size remains 1", 1, currencyList.size());
     }
+    
+    // transaction processing
+    @Test
+    public void testViewAllCurrency() {
+    	ArrayList<Transaction> transactionList = new ArrayList<>();
+        Transaction Transac1 = (new Transaction("1", "1", 1, 1, "1", "1", 1));
+        Transaction Transac2 = (new Transaction("2", "2", 2, 2, "2", "2", 2));
+
+        // Test with empty list
+        assertEquals(0, transactionList.size());
+
+        // Test with one transaction in the list
+        transactionList.add(Transac1);
+        assertEquals(1, transactionList.size());
+
+        // Test with multiple transactions in the list
+        transactionList.add(Transac2);
+        assertEquals(2, transactionList.size());
+       
+    }
+     
+
+    @Test
+    public void testAddTransaction() {
+    	 ArrayList<Transaction> transactionList = new ArrayList<>();
+         Transaction Transac1 = (new Transaction("1", "1", 1, 1, "1", "1", 1));
+         Transaction Transac2 = (new Transaction("2", "2", 2, 2, "2", "2", 2));
+         // Test adding Transaction
+         transactionList.add(Transac1);
+         assertEquals("Test if Transac1 is added to the list", 1, transactionList.size());
+         assertTrue("Test if Transac1 is added to the list", transactionList.contains(Transac1));
+
+         // Test adding another transaction
+         transactionList.add(Transac2);
+         assertEquals("Test if Transac2 is added to the list", 2, transactionList.size());
+         assertTrue("Test if Transac2 is added to the list", transactionList.contains(Transac2));
+
+         //Test adding transaction with an existing ID
+         Transaction dup = (new Transaction("1", "dup", 1, 1, "dup", "dup", 1));
+         transactionList.add(dup);
+         assertEquals("Test to see if transaction added is duplicated", dup, transactionList.get(transactionList.size()-1));
+        
+    }
+    
+    
+    
+    // account management
     @Test
     public void testAddAccount_Success() {
     	
@@ -134,7 +261,9 @@ public class C206_CaseStudyTest {
     @After
     public void tearDown() throws Exception {
         currencyList = null;
+        transactionList=null;
         accountList=null;
+        
     }
 
     @Test

@@ -203,7 +203,7 @@ public class C206_CaseStudy {
 		  userList.add(new User(user, userID, role));
 		  System.out.println("User is successfully added!");
 		}
-	private static void viewAllUsers(ArrayList<User> userList) {
+	public static void viewAllUsers(ArrayList<User> userList) {
 		  // TODO Auto-generated method stub
 		  
 		    String header = String.format("%-15s%-20s%-20s", "Username", "UserID", "Role");
@@ -584,6 +584,11 @@ public class C206_CaseStudy {
 			public static boolean deleteCurrency(ArrayList<Currency> currencyList, String string) {
 				// TODO Auto-generated method stub
 				return false;
+			}
+
+			public static void deleteUser(ArrayList<User> userList, String nameToDelete) {
+				// TODO Auto-generated method stub
+				
 			}
 		}
 
