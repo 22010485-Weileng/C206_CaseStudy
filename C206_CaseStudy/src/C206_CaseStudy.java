@@ -282,19 +282,21 @@ public class C206_CaseStudy {
 		}
 	  
 	  public static void viewAllCurrencies(ArrayList<Currency> currencyList) {
-			// TODO Auto-generated method stub
-				C206_CaseStudy.setHeader("CURRENCIES LIST");
-				String output = String.format(" %-20s %-20s %-10s\n","CURRENCY CODE", "CURRENCY NAME", "EXCHANGE RATE");
-				output += retrieveAllCurrency(currencyList);
-				System.out.println(output);
-			}
+		  // TODO Auto-generated method stub
+		  C206_CaseStudy.setHeader("CURRENCIES LIST");
+		  String output = String.format(" %-20s %-20s %-10s\n","CURRENCY CODE", "CURRENCY NAME", "EXCHANGE RATE");
+		  output += retrieveAllCurrency(currencyList);
+		  System.out.println(output);
+		}
+			   
 	  
 	  public static boolean deleteCurrency(ArrayList<Currency> currencyList) {
-		    C206_CaseStudy.viewAllCurrencies(currencyList);
-		    String currencyCodeToDelete = Helper.readString("Enter the currency code to delete: ");
-
-		    // Find the currency to delete and remove it from the list
-		    Currency currencyToDelete = null;
+		  // Display the currencies list (able to choose which currency to delete)
+		  C206_CaseStudy.viewAllCurrencies(currencyList);
+		  String currencyCodeToDelete = Helper.readString("Enter the currency code to delete: ");
+		  
+		  // Find the currency to delete and remove it from the list
+		  Currency currencyToDelete = null;
 		    for (Currency c : currencyList) {
 		        if (c.getCurrencyCode().equalsIgnoreCase(currencyCodeToDelete)) {
 		            currencyToDelete = c;
@@ -307,7 +309,7 @@ public class C206_CaseStudy {
 				String currencyName = currencyToDelete.getCurrencyName();
 				double exchangeRate = currencyToDelete.getExchangeRate();
 				String confirmation = Helper.readString("Are you sure you want to delete " + currencyCode
-		            + " - " + currencyName + "-" + exchangeRate + "? (Y/N): ");
+		            + " - " + currencyName + "-" + exchangeRate + "? (Y/N): ");//confirmation to delete
 
 		        if (confirmation.equalsIgnoreCase("y")) {
 		            currencyList.remove(currencyToDelete);
@@ -319,9 +321,8 @@ public class C206_CaseStudy {
 		        System.out.println("Currency code not found. Currency deletion canceled.");
 		    }
 			return false;
-	  }
-		
 	  
+	  }
 	  public static void transactionMenu() {
 			System.out.println("1. Display Transaction");
 			System.out.println("2. Add Transaction");
@@ -329,55 +330,83 @@ public class C206_CaseStudy {
 			System.out.println("4. Quit");
 			Helper.line(80, "-");
 		}
+	  public static void tUpdateMenu() {
+		  System.out.println("1. Update ID");
+		  System.out.println("2. Update name");
+		  System.out.println("3. Update balance");
+		  System.out.println("4. Update amount");
+		  System.out.println("5. Update date");
+		  System.out.println("6. Update currency type");
+		  System.out.println("7. Update amount to get");
+		  System.out.println("8. Quit");
+		 }
+	  
+	  // View all transactions
+	  public static void viewTransactions(ArrayList<Transaction> TransactionList) {
+		  Helper.line(80, "=");
+		  System.out.println("TRANSACTIONS");
+		  Helper.line(80, "=");
+		  String output = String.format("%-5s %-15s %-8s %-12s %-12s %-8s %-20s\n", "ID", "Name", "Balance", "Amount",
+		     "Date", "Curr", "Amount to get");
 
-		//View all transactions
-		public static void viewTransactions(ArrayList<Transaction> TransactionList) {
-			
-			Helper.line(80, "=");
-			System.out.println("TRANSACTIONS");
-			Helper.line(80, "=");
-			String output = String.format("%-5s %-15s %-12s %-12s %-8s\n","ID", "Name", "Amount", "Date", "Type" );
-			
-			for (int i = 0; i < TransactionList.size(); i++) {
-		    output += String.format("%-5s %-15s %-12.2f %-12s %-8s\n", TransactionList.get(i).getID(), TransactionList.get(i).getCustomerName(), TransactionList.get(i).getAmount(), TransactionList.get(i).getDate(), TransactionList.get(i).getType());
-	}
-		System.out.println(output);	
-	}
+		  for (int i = 0; i < TransactionList.size(); i++) {
+			  output += String.format("%-5s %-15s %-8.2f %-12.2f %-12s %-8s %-20.2f\n", TransactionList.get(i).getID(),
+				      TransactionList.get(i).getCustomerName(), TransactionList.get(i).getBalance(),
+				      TransactionList.get(i).getAmount(), TransactionList.get(i).getDate(),
+				      TransactionList.get(i).getCurr(), TransactionList.get(i).getAmountToGet());
+				   }
+				   System.out.println(output);
+				  
+			  
+		  }
+		   
 
-		
+	
+		// Add new transaction
+	    public static void addTransaction(ArrayList<Transaction> TransactionList) {
+	    	 String ID = Helper.readString("Enter resume ID: ");
+			  String customerName = Helper.readString("Enter name: ");
+			  double balance = Helper.readDouble("Enter balance: ");
+			  double amount = Helper.readDouble("Enter amount: ");
+			  String date = Helper.readString("Enter Date: ");
+			  String curr = Helper.readString("Enter currency type: ");
+			  double amountToGet = Helper.readDouble("Enter amount to get:  ");
 
-		//Add new transaction
-		public static void addTransaction(ArrayList<Transaction> TransactionList) {
-			String ID = Helper.readString("Enter resume ID: ");
-			String Name = Helper.readString("Enter name: ");
-			double amount = Helper.readDouble("Enter amount: ");
-			String date = Helper.readString("Enter Date: ");
-			String type = Helper.readString("Enter transaction type details: ");
-
-			Transaction addTransaction = new Transaction(ID, Name, amount, date, type);
-			TransactionList.add(addTransaction);
-			System.out.println("Transaction added successfully!");
-		}
-
-		//Delete existing transaction
+			  Transaction addTransaction = new Transaction(ID, customerName, balance, amount, date, curr, amountToGet);
+			  TransactionList.add(addTransaction);
+			  System.out.println("Transaction added successfully!");
+			 
+	    } 
+	    
+		// Delete existing transaction
 		public static void deleteTransaction(ArrayList<Transaction> TransactionList) {
+			
 			String del = Helper.readString("Enter the resume ID you want to delete: ");
 			Transaction transactionToDelete = null;
 			for (Transaction transaction : TransactionList) {
-				if (transaction.getID().equals(ID)) {
-					transactionToDelete = transaction;
-					break;
-				}
-			}
+				
+			    if (transaction.getID().equals(del)) {
+			    	 transactionToDelete = transaction;
+					    break;
+			   
+			   }
+			  }
+			    if (transactionToDelete != null) {
+			    	TransactionList.remove(transactionToDelete);
+					System.out.println("Resume with ID " + del + " deleted successfully!");
+					
+			    } else {
+					   System.out.println("No resume found with the given ID!");
+					  }
+					 
+				
+			    }
+				
+				   
+			
 
-			if (transactionToDelete != null) {
-				TransactionList.remove(transactionToDelete);
-				System.out.println("Resume with ID " + del + " deleted successfully!");
-			} else {
-				System.out.println("No resume found with the given ID!");
-			}
-	}
-
+			  
+		  
 		// Update existing transaction
 		public static void updateTransaction(ArrayList<Transaction> TransactionList) {
 			String upd = Helper.readString("Enter the resume ID you want to update >");
@@ -430,54 +459,122 @@ public class C206_CaseStudy {
 						System.out.println("Transaction ID not found!");
 					}
 				}
+				}
 			
 			// Search for transaction
 			public static void searchTransaction(ArrayList<Transaction> TransactionList) {
 				String output = "";
-				  String searchID = Helper.readString("Enter Transaction ID to view > ");
-				  for (int i = 0; i < TransactionList.size(); i++) {
-				   if (TransactionList.get(i).getID().equals(searchID)) {
+				String searchID = Helper.readString("Enter Transaction ID to view > ");
+				for (int i = 0; i < TransactionList.size(); i++) {
+					if (TransactionList.get(i).getID().equals(searchID)) {
 
-				    Helper.line(80, "=");
-				    System.out.println("TRANSACTION");
-				    Helper.line(80, "=");
-				    output = String.format("%-5s %-15s %-8s %-12s %-12s %-8s %-20s\n", "ID", "Name", "Balance", "Amount",
-				      "Date", "Curr", "Amount to get");
+						Helper.line(80, "=");
+						System.out.println("TRANSACTION");
+						Helper.line(80, "=");
+						output = String.format("%-5s %-15s %-8s %-12s %-12s %-8s %-20s\n", "ID", "Name", "Balance", "Amount",
+								"Date", "Curr", "Amount to get");
 
-				    output += String.format("%-5s %-15s %-8.2f %-12.2f %-12s %-8s %-20.2f\n",
-				      TransactionList.get(i).getID(), TransactionList.get(i).getCustomerName(),
-				      TransactionList.get(i).getBalance(), TransactionList.get(i).getAmount(),
-				      TransactionList.get(i).getDate(), TransactionList.get(i).getCurr(),
-				      TransactionList.get(i).getAmountToGet());
-				   } else {
-				    System.out.println("Transaction ID not found!");
-				   }
-				   System.out.println(output);
-				  }
+						output += String.format("%-5s %-15s %-8.2f %-12.2f %-12s %-8s %-20.2f\n",
+								TransactionList.get(i).getID(), TransactionList.get(i).getCustomerName(),
+								TransactionList.get(i).getBalance(), TransactionList.get(i).getAmount(),
+								TransactionList.get(i).getDate(), TransactionList.get(i).getCurr(),
+								TransactionList.get(i).getAmountToGet());
+					} else {
+						System.out.println("Transaction ID not found!");
+					}
+					System.out.println(output);
+				}
+			}
+
+			public static Account inputAccount() {
+				  // TODO Auto-generated method stub
+				  String accountName = Helper.readString("Enter account name > ");
+				  String email = Helper.readString("Enter email address > ");
+				  String emailPassword = Helper.readString("Enter email password > ");
+
+				  Account acc = new Account(accountName, email, emailPassword);
+				  
+				  return acc;
 				 }
+			 public static void addAccount(ArrayList<Account> accountList, Account acc) {
+				 // TODO Auto-generated method stub
+				  if (isAccountEmailExists(acc.getEmail(), accountList)) {
+				         System.out.println("An account with the same email already exists.");
+				         return;
+				  }
+				  if (acc.getEmail().isEmpty() || acc.getEmailPassword().isEmpty()) {
+				         System.out.println("Email and Email Password cannot be empty.");
+				         return;
+				  }
+				  // If the email and email password is unique and not empty, add the account to the accountList
+				     accountList.add(acc);
+				     System.out.println("Account added sucessfully!");
+				     return;
+				 }
+				  private static boolean isAccountEmailExists(String email, ArrayList<Account> accountList) {
+				      for (Account acc : accountList) {
+				          if (acc.getEmail().equalsIgnoreCase(email)) {
+				              return true;
+				          }
+				      }
+				      return false;
+				  }
+				  
+				public static String retrieveAllAccounts(ArrayList<Account> accountList) {
+					   String output = "";
+
+					   for (int i = 0; i < accountList.size(); i++) {
+
+					    output += String.format("%-10s %-10.2f\n",accountList.get(i).getAccountName(), accountList.get(i).getEmail());
+					   }
+					   return output;
+					  }
+
+				 public static void viewAllAccounts(ArrayList<Account> accountList) {
+				 // TODO Auto-generated method stub
+				  C206_CaseStudy.setHeader("MY ACCOUNTS");
+				  String output = String.format("%-10s %-10s\n","ACCOUNT NAME","EMAIL ADDRESS");
+				  output += retrieveAllAccounts(accountList);
+				  System.out.println(output);
+				 }
+				 public static void deleteAccount(ArrayList<Account> accountList, Account acc) {
+					 // TODO Auto-generated method stub
+					  C206_CaseStudy.viewAllAccounts(accountList);
+					     System.out.print("Enter the email address of the account to delete: ");
+					     String account = Helper.readString().trim();
+
+					     Account accountToDeleteObj = null;
+					     for (Account a : accountList) {
+					         if (a.getEmail().equalsIgnoreCase(account)) {
+					             accountToDeleteObj = a;
+					             break;
+					         }
+					     }
+					     if (accountToDeleteObj != null) {
+					         System.out.print("Are you sure you want to delete " + accountToDeleteObj.getAccountName()
+					                 + " - " + accountToDeleteObj.getEmail() + "? (Y/N): ");
+					         String confirmation = Helper.readString().trim();
+
+					         if (confirmation.equalsIgnoreCase("y")) {
+					             accountList.remove(accountToDeleteObj);
+					             System.out.println("Account " + accountToDeleteObj.getAccountName() + " has been deleted.");
+					         } else {
+					             System.out.println("Account deletion canceled.");
+					         }
+					     } else {
+					         System.out.println("Email not found. Account deletion canceled.");
+					     }
+					 }
+				  
+
 				
-			}
-			  
-	private static Account inputAccount() {
-			// TODO Auto-generated method stub
-			return null;
-			
-			}
-			private static void addAccount(ArrayList<Account> accountList, Account acc) {
-			// TODO Auto-generated method stub
-			
-		}
 
-			private static void viewAllAccounts(ArrayList<Account> accountList) {
-			// TODO Auto-generated method stub
-			
-		}
-
-			private static void deleteAccount(ArrayList<Account> accountList, Account acc) {
-			// TODO Auto-generated method stub
-			
-		}
-
+					 
+				  
+				  
+				
+				
+				 
 			public static void addCurrency(ArrayList<Currency> currencyList, Currency cur1) {
 				// TODO Auto-generated method stub
 				

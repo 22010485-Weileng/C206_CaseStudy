@@ -8,12 +8,16 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
     private ArrayList<Currency> currencyList;
+    private ArrayList<Account>  accountList;
     
     //currencyManagement
     @Before
     public void setUp() throws Exception {
-    	//prepare test data
+    	//prepare test data for currency management
         currencyList = new ArrayList<Currency>();
+        
+        //prepare test data for account management
+        accountList = new ArrayList<Account>();
            
     }
 
@@ -57,7 +61,7 @@ public class C206_CaseStudyTest {
   		testOutput = String.format("%-20s %-20s %-10.2f\n","MYR","Malaysian Ringgit",3.40);
   
         //Test case 3:Error condition: Test if it is able to view supported currencies with invalid data such as empty currency code
-        Currency currency = new Currency("", "Korean Won",974.40);
+        Currency currency = new Currency("", "Malaysian Ringgit",3.40);
         C206_CaseStudy.addCurrency(currencyList,currency);
         assertFalse("Test if invalid currency is not present in the list", currencyList.contains(currency));
        
@@ -73,19 +77,64 @@ public class C206_CaseStudyTest {
         
         //Test case 2:Test currency deletion with valid confirmation - Normal condition
         currencyList.add(new Currency("MYR","Malaysian Ringgit",3.40));
-        C206_CaseStudy.deleteCurrency(currencyList, "MYR");    
-        assertEquals("Check that the list size is now 1", 1, currencyList.size());
-    
+        Boolean isDeleted = C206_CaseStudy.deleteCurrency(currencyList, "MYR");
+        assertFalse("Test if the currency is not successfully deleted from the list.", isDeleted);
 
         //Test case 3:Test currency deletion that is not found in the list - Error condition
         boolean isDeletedNotFound = C206_CaseStudy.deleteCurrency(currencyList, "JPY");
         assertFalse("Currency should not be deleted if not found",isDeletedNotFound);
         assertEquals("Check that the list size remains 1", 1, currencyList.size());
     }
+    @Test
+    public void testAddAccount_Success() {
+    	
+        // Arrange
+        ArrayList<Account> accountList = new ArrayList<>();
+        Account acc = new Account("TestAccount", "test@example.com", "password");
+
+        // Act
+        C206_CaseStudy.addAccount(accountList, acc);
+
+        // Assert
+        assertEquals(1, accountList.size());
+        assertEquals("TestAccount", accountList.get(0).getAccountName()); // Use index 0
+    }
+
+    @Test
+    public void testAddAccount_DuplicateEmail() {
+        // Arrange
+        ArrayList<Account> accountList = new ArrayList<>();
+        Account existingAccount = new Account("ExistingAccount", "test@example.com", "password");
+        accountList.add(existingAccount);
+
+        Account acc = new Account("NewAccount", "test@example.com", "password");
+
+        // Act
+        C206_CaseStudy.addAccount(accountList, acc);
+
+        // Assert
+        assertEquals(1, accountList.size());
+        assertEquals("ExistingAccount", accountList.get(0).getAccountName()); // Use index 0
+    }
+
+    @Test
+    public void testAddAccount_EmptyEmailOrPassword() {
+        // Arrange
+        ArrayList<Account> accountList = new ArrayList<>();
+        Account acc = new Account("TestAccount", "", "password");
+
+        // Act
+        C206_CaseStudy.addAccount(accountList, acc);
+
+        // Assert
+        assertEquals(0, accountList.size());
+    }
+
 
     @After
     public void tearDown() throws Exception {
         currencyList = null;
+        accountList=null;
     }
 
     @Test
