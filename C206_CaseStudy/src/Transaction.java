@@ -7,20 +7,11 @@ public class Transaction {
 	private String date;
 	private String curr;
 	private double amountToGet;
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
 
-<<<<<<< HEAD
 
 	public Transaction(String ID, String customerName,double balance, double amount, String date,
 			   String curr, double amountToGet) {
 		
-=======
-	public Transaction(String ID, String customerName,double balance, double amount, String date,
-			String curr, double amountToGet) {
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
 		this.ID = ID;
 		this.customerName = customerName;
 		this.balance = balance;
@@ -41,7 +32,7 @@ public class Transaction {
 		return customerName;
 		 }
 
-<<<<<<< HEAD
+
 	 public void setCustomerName(String customerName) {
 		 this.customerName = customerName;
 	 }
@@ -69,26 +60,18 @@ public class Transaction {
 	 public void setCurr(String curr) {
 		  this.curr = curr;
 		 }
-	 public double getAmountToGet() {
+	 public void setAmountToGet(double amountToGet) {
+		this.amountToGet = amountToGet;
+	}
+	public double getAmountToGet() {
 		  return amountToGet;
 		 }
-=======
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
+}
 	
-	public double getBalance() {
-		return balance;
-	}
+	
 
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
 
-	public void setAmountToGet(double amountToGet) {
-		  this.amountToGet = amountToGet;
-}}
+
 
 		 
 
@@ -98,22 +81,7 @@ public class Transaction {
 		 
 	
 
-<<<<<<< HEAD
-		
-=======
-	public String getCurr() {
-		return curr;
-	}
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
 
-<<<<<<< HEAD
-=======
-	public void setCurr(String curr) {
-		this.curr = curr;
-	}
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
-
-<<<<<<< HEAD
 	
 
 		 
@@ -123,14 +91,3 @@ public class Transaction {
 		
 		 
 		 
-=======
-	public double getAmountToGet() {
-		return amountToGet;
-	}
-
-	public void setAmountToGet(double amountToGet) {
-		this.amountToGet = amountToGet;
-	}
-
-}
->>>>>>> branch 'master' of https://github.com/22010485-Weileng/C206_CaseStudy.git
